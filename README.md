@@ -1,1 +1,2 @@
-# Introducing-Generative-AI-for-Humanities-
+# Introducing-Generative-AI-for-Humanities
+
