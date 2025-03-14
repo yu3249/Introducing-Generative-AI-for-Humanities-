@@ -1,1 +1,55 @@
 # 提示語工程 
+HW3 Prompt Engineering
+
+(40%) 請自行挑一個 LLM （ChatGPT, Gemini, Claude, DeepSeek, etc.），
+利用學到的 prompting 技巧，讓模型在輸入以下指定的句子時，自動判斷該句的情緒。注意：模型的輸出結果只能為 ｢正向｣ 、｢負向｣ 和 ｢中性｣ 以上三種其中之一。
+
+請截圖或附上連結提供你與模型的對話紀錄。
+
+1.凱凱老師滿面春風地在台上講課。
+2.為什麼打輸別人？找找你自己問題好不好？
+
+作業區 : 
+https://claude.ai/share/2fa7299d-a492-43c9-be74-7960d1345e99 
+
+(60%) 請挑選一個 LLM，利用不同的 prompting 技巧，讓模型成功解答以下 2024 年英國語言學奧林匹亞的題目，並回答下列問題。
+
+[UKLO 2024 Problem 4. Xhosa](https://drive.google.com/file/d/1jWBE-2xCoSvzdViwQIgEPndWrdrhiuLJ/view?usp=sharing)
+
+請先閱讀題目與答案，並設計 prompt ，在不直接告訴模型答案的前提下，引導模型得出正確答案。
+請截圖或附上連結提供你與模型的對話紀錄。
+
+
+1.(20%) 你使用了哪些 prompting 的方式？為什麼選擇這些方式？
+2.(20%) 你覺得模型的回答好不好？為什麼？
+3.(20%) 你覺得還可以怎樣修改 prompt，讓模型的表現更好？
+
+作業區 : 
+https://claude.ai/share/6bf8d429-855d-4bae-9cd7-5767e0ffe529  
+
+1.你使用了哪些 prompting 的方式？為什麼選擇這些方式？
+在之前的範例中，主要使用了以下兩種 prompting 方式：
+•提供清晰的指示和上下文 (Providing clear instructions and context):  Prompt 的開頭明確告知模型需要將科薩語翻譯成英文 [instruction]。同時，Prompt 中也說明了翻譯的來源是您提供的檔案。這種方式確保模型明確理解任務的目標 [instruction]。
+•利用檔案中的資訊作為上下文學習 (In-context Learning / Few-shot Prompting): Prompt 的主體部分包含了檔案 中的所有科薩語例句及其對應的英文翻譯。選擇這種方式的原因是：
+  ◦作為模型的學習範例： 這些例句直接展示了科薩語的詞彙、基本的句子結構以及科薩語和英語之間的對應關係。模型可以從這些範例中學習到翻譯的模式和規則，即使沒有被明確告知所有語法細節 [few-shot prompting]。
+  ◦引導模型理解特定詞彙和表達方式： 檔案中包含了問題中需要翻譯的詞彙或類似結構，例如 "thanda" (love), "bona" (see), 以及主語和賓語的人稱代詞詞根 (ndi-, si-, u-, ni-, ba-, ku-, ni-)。透過提供這些範例，模型更有可能正確翻譯 "Bayanithanda?" 中的 "ba-" (they) 和 "-nithanda" (love you (pl)).
+2.覺得模型的回答好不好？為什麼？
+我認為模型的回答在策略上是好的，原因如下：
+•策略正確性： 回答中建議的 prompting 技巧（提供清晰指示、上下文學習、逐步推理、利用語法規則、迭代修正、針對不同模型調整）都是針對語言模型進行有效 prompting 的常用且有效的方法。
+•與檔案內容的連結： 回答中始終強調利用您提供的檔案內容作為 prompting 的基礎，例如使用檔案中的例句進行上下文學習，以及利用檔案中提供的語法規則進行引導。這符合您的要求，即回答應基於提供的來源。
+•逐步性和全面性： 回答從最基本的清晰指示開始，逐步介紹更進階的 prompting 技巧，例如逐步推理，並考慮到不同模型的特性，提供了較為全面的 prompting 策略。
+•提供了具體的範例 Prompt：  針對翻譯任務提供了清晰的 Prompt 結構範例，方便您實際操作。
+3.覺得還可以怎樣修改 prompt，讓模型的表現更好？
+雖然之前的 prompt 策略是好的，但為了進一步提升模型的表現，可以考慮以下修改方向：
+•更明確地引用語法規則： 在 prompt 中，可以更直接地引用檔案 中提供的語法規則，例如：
+•這樣做可以更直接地引導模型分析句子結構。
+•針對特定語言特點進行提問： 由於科薩語有其獨特的語言特點，例如 click consonants 和黏著語的特性，可以嘗試在 prompt 中詢問模型對這些特點的理解，或者要求模型在翻譯時考慮這些特點（儘管在這個具體的翻譯題中 click consonants 並不直接相關）。
+•使用問題-答案對的形式進行更精細的上下文學習： 可以將檔案中的例句以問題-答案對的形式呈現，讓模型更明確地學習輸入和輸出之間的關係：
+•引入負面範例（如果模型出現特定錯誤）： 如果模型在翻譯中經常犯某些錯誤，可以在 prompt 中提供錯誤的範例及其正確的翻譯，幫助模型避免類似的錯誤。
+•要求模型解釋翻譯的理由： 使用 Chain-of-Thought Prompting 的方式，要求模型逐步解釋其翻譯的過程和依據，這有助於我們理解模型的推理過程，並判斷翻譯是否正確。例如：
+•針對英文到科薩語的翻譯，更強調詞序和詞綴的組合： 在將英文翻譯成科薩語時，可以更詳細地提醒模型科薩語的動詞詞綴結構 和基本的動詞-賓語詞序。
+
+參考資料
+[Prompt Engineering Guide 提示工程指南](https://www.promptingguide.ai/zh)
+[DeepLearning.AI - ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/)
+[DeepLearning.AI - Prompt Engineering with Llama 2 & 3](https://www.deeplearning.ai/short-courses/prompt-engineering-with-llama-2/)
